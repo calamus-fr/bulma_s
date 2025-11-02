@@ -1,3 +1,6 @@
+@use "../../abstracts/mixins/_mixins" as *;
+@use "../../plugins/woocommerce/_components" as *;
+
 .single-product {
 
 	div.product {

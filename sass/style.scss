@@ -1,9 +1,9 @@
 /*!
-Theme Name: _s
-Theme URI: https://underscores.me/
-Author: Automattic
-Author URI: https://automattic.com/
-Description: Hi. I'm a starter theme called <code>_s</code>, or <em>underscores</em>, if you like. I'm a theme meant for hacking so don't use me as a <em>Parent Theme</em>. Instead try turning me into the next, most awesome, WordPress theme out there. That's what I'm here for.
+Theme Name: bulma_s
+Theme URI: https://github.com/calamus-fr/bulma_s
+Author: Calamus.fr (forked from Automattic's _s theme)
+Author URI: https://calamus.fr
+Description: Fork of _s WP theme with Bulma integration.
 Version: 1.0.0
 Tested up to: 5.4
 Requires PHP: 5.6
@@ -51,7 +51,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 --------------------------------------------------------------*/
 
 // Import variables and mixins.
-@import "abstracts/abstracts";
+@use "abstracts/abstracts";
 
 /*--------------------------------------------------------------
 # Generic
@@ -59,16 +59,16 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 
 /* Normalize
 --------------------------------------------- */
-@import "generic/normalize";
+@use "generic/normalize";
 
 /* Box sizing
 --------------------------------------------- */
-@import "generic/box-sizing";
+@use "generic/box-sizing";
 
 /*--------------------------------------------------------------
 # Base
 --------------------------------------------------------------*/
-@import "base/base";
+@use "base/base";
 
 /*--------------------------------------------------------------
 # Layouts
@@ -79,7 +79,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 /*--------------------------------------------------------------
 # Components
 --------------------------------------------------------------*/
-@import "components/components";
+@use "components/components";
 
 /*--------------------------------------------------------------
 # Plugins
@@ -87,7 +87,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 
 /* Jetpack infinite scroll
 --------------------------------------------- */
-@import "plugins/jetpack/infinite-scroll";
+@use "plugins/jetpack/infinite-scroll";
 
 /*--------------------------------------------------------------
 # Utilities
@@ -95,8 +95,104 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 
 /* Accessibility
 --------------------------------------------- */
-@import "utilities/accessibility";
+@use "utilities/accessibility";
 
 /* Alignments
 --------------------------------------------- */
-@import "utilities/alignments";
+@use "utilities/alignments";
+
+
+// Import Bulma d'abord (si pas déjà)
+//@import "https://cdn.jsdelivr.net/npm/bulma@1.0.1/bulma.sass"; // Import depuis CDN
+@use "../node_modules/bulma/bulma.scss" as *;
+
+// Redéfinit les variables Bulma pour fond blanc
+$bulma-body-background-color: white;
+$bulma-background-color: white;
+$bulma-navbar-background-color: white;
+$bulma-card-background-color: white;
+$bulma-content-background-color: white;
+
+// Recompile Bulma avec ces vars
+//@include bulma-variables;
+//@include bulma-components;
+
+/* ajout calamus */
+
+// Overrides pour fond blanc et ombre
+body, .site {
+    background-color: white !important; // Force blanc sur tout
+    color: black; // Texte noir pour contraste
+}
+
+.navbar {
+    background-color: white !important; // Navbar blanche
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Ombre subtile
+}
+
+.navbar-menu, .navbar-item {
+    background-color: white; // Assure blanc pour le menu
+}
+
+.site-footer {
+    background-color: white !important; // Footer blanc
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); // Ombre en haut
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Ombre légère pour cards blog
+}
+
+// Si Bulma a un thème dark, reset vars
+:root {
+    --bulma-body-background-color: white;
+    --bulma-background-color: white;
+    --bulma-navbar-background-color: white;
+    --bulma-card-background-color: white;
+    --bulma-content-background-color: white;
+}
+
+html, body, .site, #page, .navbar, .card, .content {
+    background-color: var(--bulma-body-background-color) !important;
+    color: black;
+}
+
+// Ombre subtile pour navbar et footer (comme mycancalekitchen)
+.site-header .navbar {
+    background-color: white !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.site-footer {
+    background-color: white !important;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Articles de blog en cards blanches
+.post, .article {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Ombre légère
+  }
+  
+  // Layout global responsive (équivalent Bootstrap container)
+.site-main, #primary, .container {
+    margin: 0 auto;
+    padding: 1rem; // Marges responsive
+    max-width: 1200px; // Largeur max comme Bootstrap
+}
+
+@media (min-width: 768px) {
+    .site-main, #primary {
+        padding: 2rem; // Plus d'espace sur desktop
+    }
+}
+
+// Full-width pour hero ou images
+.hero, .full-width {
+    padding: 0; // Pas de marges pour sections pleines
+}
+
+.full-width {
+    margin: 0 !important;
+    padding: 1rem 0; // Pas de marges latérales
+}

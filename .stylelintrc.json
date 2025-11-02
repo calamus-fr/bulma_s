@@ -1,16 +1,20 @@
 {
-    "extends": [
-        "@wordpress/stylelint-config/scss"
-    ],
-    "ignoreFiles": [
-        "sass/_normalize.scss"
-    ],
-    "rules": {
-        "font-family-no-missing-generic-family-keyword": null,
-        "no-descending-specificity": null,
-        "block-no-empty": null,
-        "no-duplicate-selectors": null,
-        "font-family-no-duplicate-names": null,
-        "selector-class-pattern": null
-    }
+  "extends": [
+    "@wordpress/stylelint-config/scss",
+    "@wordpress/stylelint-config"
+  ],
+  "rules": {
+    "color-named": "always-where-possible",
+    "no-empty-source": null,
+    "font-family-no-missing-generic-family-keyword": null,
+    "no-descending-specificity": null,
+    "block-no-empty": null,
+    "no-duplicate-selectors": null,
+    "font-family-no-duplicate-names": null,
+    "selector-class-pattern": null
+  },
+  "ignoreFiles": [
+    "sass/_normalize.scss",
+    "woocommerce.css"
+  ]
 }
